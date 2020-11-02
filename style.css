@@ -1,6 +1,24 @@
 body {
     margin: 0;
+    background-color: rgb(226, 226, 226);
     display: flex;
     justify-content: center;
-    background-color: rgb(226, 226, 226);
+}
+
+
+
+#word {
+    list-style: none;
+    max-width: 60%
+}
+#word li {
+    background-color: lightgray;
+    display: inline;
+    margin: 0.5rem;
+    font-size: 3rem;
+    padding: 0 0.5rem;
+}
+
+.hide {
+    display: none;
 }
