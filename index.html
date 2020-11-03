@@ -13,12 +13,18 @@
             <img src="./Images/hangman.svg" alt="hangman">
         </figure>
 
-        <button id="btn">Start game</button>
+        <button id="startBtn">Start game</button>
 
-        <p id="letters"></p>
+        <section  class="hide" id="gameContainer">
+            <p id="letters"></p>
 
-        <ul id="word"></ul>
+            <p id="word"></p>
 
+            <p>Wrong guesses: <span id="mistakes">0</span> of <span id="maxWrong"></span></p>
+
+            <article id="alphabet"></article>
+        </section>
+            
     </main>
     
 <script src="./script.js"></script>

@@ -6,17 +6,42 @@ body {
 }
 
 
-
 #word {
     list-style: none;
-    max-width: 60%
+    max-width: 70%
 }
+
 #word li {
     background-color: lightgray;
     display: inline;
     margin: 0.5rem;
     font-size: 3rem;
     padding: 0 0.5rem;
+}
+
+#alphabet{
+    list-style: none;
+    max-width: 50%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#alphabet li {
+    display: inline;
+}
+
+#alphabet button {
+    font-size: 1.5rem;
+    margin: 0.5rem;
+    border-style: none;
+    background-color: lightgray;
+    min-width: 2rem;
+}
+
+#alphabet button:hover {
+    background-color: rgb(145, 145, 145);
+    transform: scale(1.2);
 }
 
 .hide {

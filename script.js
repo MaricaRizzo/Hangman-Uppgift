@@ -1,65 +1,97 @@
 // Variables
-let button = document.getElementById('btn');
+let randomWords = ['elephant', 'presumptuos', 'article', 'trident', 'creature', 'justification'];
+let answer = '';
+let maxWrong = 5;
+let mistakes = 0;
+let guessed = [];
+let wordStatus = null;
+
+
 
 // Give random word from list of words
-let randomWords = ['Elephant', 'Presumptuos', 'Article', 'Trident', 'Creature', 'Justification'];
-let getWord = randomWords[Math.floor(Math.random()*randomWords.length)];
+document.getElementById('startBtn').addEventListener('click', () =>{
+    document.getElementById('startBtn').classList.toggle('hide');
+    document.getElementById('gameContainer').classList.toggle('hide');
+})
+
+function getWord() {
+    answer = randomWords[Math.floor(Math.random()*randomWords.length)];
+    
+}  
 
 
-// Add event listener to #btn to start game
-button.addEventListener('click', () => {
-    document.getElementById('btn').classList.toggle('hide');
 
-// Add li for each letter in ranadom word
-    let ul = document.getElementById("word");
-    let li = document.createElement("li");
-    for (let i = 0; i < getWord.length; i++) {
-        wordLetters = document.createElement('li');
-        ul.appendChild(wordLetters)
-        if (getWord[i] === "-") {
-            wordLetters.innerHTML = "-";
-            space = 1;
-        } else {
-            wordLetters.innerHTML = "_";
-        }
-        console.log(getWord.charAt(i));
+// Split guess word and create guess word empty cells 
+function guessedWord() {
+    wordStatus = answer.split('').map(letter => (guessed.indexOf(letter) >= 0 ? letter : '_')).join(' ');
+    document.getElementById('word').innerHTML = wordStatus;
 }
 
-});
+
+
+// Create alphabet buttons
+function generateButtons() {
+    let buttonsHTML = 'abcdefghijklmnopqrstuvwxyz'.split('').map(letter => 
+        `
+        <button
+            class = "btn"
+            id = '` + letter + `'
+            onClick = "handleGuess('` + letter + `')"
+        >
+        ` + letter + `
+        </button>
+        `).join('');
+        document.getElementById('alphabet').innerHTML = buttonsHTML;
+}
 
 
 
+// Update letters for right guesses
+function handleGuess(chosenLetter) {
+    if (guessed.indexOf(chosenLetter) === -1) {
+        guessed.push(chosenLetter)
+    } else {
+        null;
+    } 
+    document.getElementById(chosenLetter).setAttribute('disabled', true);
 
-// Create alphabet ul
-
-
-
-
-
-
-
-
-
-
-
-// Record typed letters
-
-
-
-
-// Find letters in word
-
+    if (answer.indexOf(chosenLetter) >= 0) {
+        guessedWord();
+        checkIfGameWon();
+    } else if (answer.indexOf(chosenLetter) === -1) {
+        mistakes++;
+        updateMistakes();
+        checkIfGameLost();
+    }
+}
 
 
 
-// If correct word, write letter in #word
+// Update wrong guesses
+function updateMistakes() {
+    document.getElementById('mistakes').innerHTML = mistakes
+}
+
+document.getElementById('maxWrong').innerHTML = maxWrong;
 
 
 
+// Check for game result
+function checkIfGameWon() {
+    if (wordStatus === answer) {
+        document.getElementById('alphabet').innerHTML = 'You won!'
+    }
+}
 
-// If not, save used letter in #letters
+function checkIfGameLost() {
+    if (mistakes === maxWrong) {
+        document.getElementById('alphabet').innerHTML = 'You lost!'
+    }
+}
 
 
 
-
-// End game after 5 wrong letters
+// Call functions
+getWord();
+guessedWord();
+generateButtons();
