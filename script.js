@@ -5,9 +5,12 @@ let maxWrong = 5;
 let mistakes = 0;
 let guessed = [];
 let wordStatus = null;
-
-
-
+let firstTimeUsed = true;
+let firstTimeScaffold = true;
+let firstTimeHead = true;
+let firstTimeBody = true;
+let firstTimeLegs = true;
+let firstTimeArms = true;
 
 // Start game on click
 document.getElementById('startBtn').addEventListener('click', () =>{
@@ -53,8 +56,8 @@ function generateButtons() {
 
 
 // Update letters for right guesses
-function handleGuess(chosenLetter) {
-    if (guessed.indexOf(chosenLetter) === -1) {
+function handleGuess(chosenLetter ) {
+    if (guessed.indexOf(chosenLetter) === -1 ) {
         guessed.push(chosenLetter)
     } else {
         null;
@@ -100,35 +103,45 @@ function checkIfGameLost() {
 
 // to toggle svg parts 
 function hideSvg() {
-    if(mistakes == 1 ){
+    if(mistakes == 1 & firstTimeScaffold == true  || firstTimeUsed == false ){
         document.getElementById('scaffold').classList.toggle('hidden');
+        firstTimeScaffold = false;
     }
-    if(mistakes == 2 ){
+    if(mistakes == 2 & firstTimeHead == true  || firstTimeUsed == false ){
         document.getElementById('head').classList.toggle('hidden');
+        firstTimeHead = false;
     }
-    if(mistakes == 3 ){
+    if(mistakes == 3 & firstTimeBody == true || firstTimeUsed == false ){
         document.getElementById('body').classList.toggle('hidden');
+        firstTimeBody = false;
     }
-    if(mistakes == 4 ){
+    if(mistakes == 4 & firstTimeArms == true || firstTimeUsed == false ){
         document.getElementById('arms').classList.toggle('hidden');
+        firstTimeArms = false;
     }
-    if(mistakes == 5 ){
+    if(mistakes == 5 & firstTimeLegs == true || firstTimeUsed == false ){
         document.getElementById('legs').classList.toggle('hidden');
+        firstTimeLegs = false;
     }
- }
+     if (firstTimeUsed == false){
+            firstTimeUsed = true ;
+        }
+}
 
- document.getElementById('restart-btn').addEventListener('click', () =>{
+document.getElementById('restart-btn').addEventListener('click', () =>{
 
-    guessed = '';
     mistakes = 0;
+    guessed = [];
     getWord()
     guessedWord()
     generateButtons()
     updateMistakes()
-    handleGuess()
+    if (firstTimeUsed == true){
+            firstTimeUsed = false;
+            hideSvg()
+    }
+    
  });
-
-
 
 // Call functions
 getWord();
