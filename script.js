@@ -8,6 +8,7 @@ let wordStatus = null;
 
 
 
+
 // Start game on click
 document.getElementById('startBtn').addEventListener('click', () =>{
     document.getElementById('startBtn').classList.toggle('hide');
@@ -69,6 +70,7 @@ function handleGuess(chosenLetter) {
         mistakes++;
         updateMistakes();
         checkIfGameLost();
+        hideSvg();
     }
 }
 
@@ -95,6 +97,36 @@ function checkIfGameLost() {
         document.getElementById('alphabet').innerHTML = 'You lost!'
     }
 }
+
+// to toggle svg parts 
+function hideSvg() {
+    if(mistakes == 1 ){
+        document.getElementById('scaffold').classList.toggle('hidden');
+    }
+    if(mistakes == 2 ){
+        document.getElementById('head').classList.toggle('hidden');
+    }
+    if(mistakes == 3 ){
+        document.getElementById('body').classList.toggle('hidden');
+    }
+    if(mistakes == 4 ){
+        document.getElementById('arms').classList.toggle('hidden');
+    }
+    if(mistakes == 5 ){
+        document.getElementById('legs').classList.toggle('hidden');
+    }
+ }
+
+ document.getElementById('restart-btn').addEventListener('click', () =>{
+
+    guessed = '';
+    mistakes = 0;
+    getWord()
+    guessedWord()
+    generateButtons()
+    updateMistakes()
+    handleGuess()
+ });
 
 
 
