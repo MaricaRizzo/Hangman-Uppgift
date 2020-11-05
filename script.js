@@ -5,17 +5,12 @@ let maxWrong = 5;
 let mistakes = 0;
 let guessed = [];
 let wordStatus = null;
-let firstTimeUsed = true;
-let firstTimeScaffold = true;
-let firstTimeHead = true;
-let firstTimeBody = true;
-let firstTimeLegs = true;
-let firstTimeArms = true;
 
 // Start game on click
 document.getElementById('startBtn').addEventListener('click', () =>{
     document.getElementById('startBtn').classList.toggle('hide');
     document.getElementById('gameContainer').classList.toggle('hide');
+    hideSvg();
 })
 
 
@@ -30,7 +25,7 @@ function getWord() {
 // Fill in word with guessed letter or
 // Create empty cells 
 function guessedWord() {
-    wordStatus = answer.split('').map(letter => (guessed.indexOf(letter) >= 0 ? letter : '_')).join(' ');
+    wordStatus = answer.split('').map(letter => (guessed.indexOf(letter) >= 0 ? letter : '_')).join('');
 
     document.getElementById('word').innerHTML = wordStatus;
 }
@@ -103,29 +98,7 @@ function checkIfGameLost() {
 
 // to toggle svg parts 
 function hideSvg() {
-    if(mistakes == 1 & firstTimeScaffold == true  || firstTimeUsed == false ){
-        document.getElementById('scaffold').classList.toggle('hidden');
-        firstTimeScaffold = false;
-    }
-    if(mistakes == 2 & firstTimeHead == true  || firstTimeUsed == false ){
-        document.getElementById('head').classList.toggle('hidden');
-        firstTimeHead = false;
-    }
-    if(mistakes == 3 & firstTimeBody == true || firstTimeUsed == false ){
-        document.getElementById('body').classList.toggle('hidden');
-        firstTimeBody = false;
-    }
-    if(mistakes == 4 & firstTimeArms == true || firstTimeUsed == false ){
-        document.getElementById('arms').classList.toggle('hidden');
-        firstTimeArms = false;
-    }
-    if(mistakes == 5 & firstTimeLegs == true || firstTimeUsed == false ){
-        document.getElementById('legs').classList.toggle('hidden');
-        firstTimeLegs = false;
-    }
-     if (firstTimeUsed == false){
-            firstTimeUsed = true ;
-        }
+    document.getElementById('hangman').src = "./Images/hangman" + mistakes + ".svg";
 }
 
 document.getElementById('restart-btn').addEventListener('click', () =>{
@@ -136,11 +109,8 @@ document.getElementById('restart-btn').addEventListener('click', () =>{
     guessedWord()
     generateButtons()
     updateMistakes()
-    if (firstTimeUsed == true){
-            firstTimeUsed = false;
-            hideSvg()
-    }
-    
+    hideSvg()
+
  });
 
 // Call functions
