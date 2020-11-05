@@ -26,7 +26,7 @@ function getWord() {
 // Fill in word with guessed letter or
 // Create empty cells 
 function guessedWord() {
-    wordStatus = answer.split('').map(letter => (guessed.indexOf(letter) >= 0 ? letter : '_')).join(' ');
+    wordStatus = answer.split('').map(letter => (guessed.indexOf(letter) >= 0 ? letter : '_')).join('');
 
     document.getElementById('word').innerHTML = wordStatus;
 }
@@ -51,20 +51,21 @@ function generateButtons() {
 
 
 
-// Update letters for right guesses
+// Add guessed letter to "guessed" array
 function handleGuess(chosenLetter) {
     if (guessed.indexOf(chosenLetter) === -1) {
         guessed.push(chosenLetter)
     } else {
         null;
     } 
-
+    
     document.getElementById(chosenLetter).setAttribute('disabled', true);
 
-
+    // Update letters for right guesses
     if (answer.indexOf(chosenLetter) >= 0) {
         guessedWord();
         checkIfGameWon();
+    // Update mistakes count
     } else if (answer.indexOf(chosenLetter) === -1) {
         mistakes++;
         updateMistakes();
@@ -83,7 +84,7 @@ document.getElementById('maxWrong').innerHTML = maxWrong;
 
 
 
-// Check for game result ---> not working
+// Check for game result 
 function checkIfGameWon() {
     if (wordStatus === answer) {
         document.getElementById('alphabet').innerHTML = 'You won!'
@@ -95,10 +96,24 @@ function checkIfGameLost() {
         document.getElementById('alphabet').innerHTML = 'You lost!'
     }
 }
+ 
 
+function reset() {
+    window.onload = () => {
+    document.getElementById('startBtn').classList.toggle('hide');
+    document.getElementById('gameContainer').classList.toggle('hide');
+    } 
+    
+}
 
+document.getElementById('resetBtn').addEventListener('click', () => {
+    location.reload( );
+    reset();
+});
 
 // Call functions
 getWord();
 guessedWord();
 generateButtons();
+
+
