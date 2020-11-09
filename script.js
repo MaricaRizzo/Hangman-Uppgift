@@ -221,7 +221,7 @@ function updateComputerScore() {
 let countDownElement = document.getElementById('timer');
 
 function updateCountDown (){
-    minutes = Math.floor(time / 60);
+    minutes = Math.floor(time / 60 );
     seconds = time % 60;
     countDownElement.innerHTML = `${minutes} : ${seconds}`;
     time--;
