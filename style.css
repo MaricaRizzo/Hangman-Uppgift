@@ -1,8 +1,6 @@
 body {
     margin: 0;
     background-color: rgb(226, 226, 226);
-    display: flex;
-    justify-content: center;
 }
 
 
@@ -51,3 +49,5 @@ body {
 .hidden {
     display: none;
 }
+
+
