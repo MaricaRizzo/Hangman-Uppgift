@@ -25,7 +25,6 @@ document.getElementById('startBtn').addEventListener('click', () =>{
 
 // Change game difficulty and push correct array 
 function changeDifficulty(difficulty = 0) {
-  
     level = difficulty
     randomWords = [];
     
@@ -42,7 +41,6 @@ function changeDifficulty(difficulty = 0) {
 function getWord() {
     answer = randomWords[Math.floor(Math.random()*randomWords.length)]; 
 }  
-
 
 //Select easy word
 document.getElementById('easy').addEventListener('click', () => {
