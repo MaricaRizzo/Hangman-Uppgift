@@ -155,16 +155,12 @@ function handleGuess(chosenLetter ) {
 }
 
 
-
 // Update wrong guesses
 function updateMistakes() {
     document.getElementById('mistakes').innerHTML = mistakes
 }
 
 document.getElementById('maxWrong').innerHTML = maxWrong;
-
-
-
 
 
 //Toggle svg parts 
