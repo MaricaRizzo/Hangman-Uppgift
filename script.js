@@ -244,7 +244,7 @@ function updateCountDown (){
 
 function endOfTime (){
     clearInterval (clear);
-    document.getElementById('alphabet').innerHTML = 'Time is up! you lost.' + "<br />" + 'the computer scored: ' + computerScore + ' and you scored: ' + playerScore ;
+    document.getElementById('alphabet').innerHTML = 'Time is up! you lost.';
     computerScore++;
 };
 
