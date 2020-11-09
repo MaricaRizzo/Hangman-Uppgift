@@ -55,6 +55,7 @@ document.getElementById('easy').addEventListener('click', () => {
     
     startInMinuts = 3;
     time = startInMinuts * 60;
+    clearInterval(clear)
     clear = setInterval ( updateCountDown,intervalSpeed);
     changeDifficulty(1);
     mistakes = 0;
@@ -72,6 +73,7 @@ document.getElementById('medium').addEventListener('click', () => {
 
     startInMinuts = 2;
     time = startInMinuts * 60;
+    clearInterval(clear)
     clear = setInterval ( updateCountDown,intervalSpeed);
     changeDifficulty(2);
     mistakes = 0;
@@ -89,6 +91,7 @@ document.getElementById('hard').addEventListener('click', () => {
 
     startInMinuts = 1;
     time = startInMinuts * 60;
+    clearInterval(clear)
     clear = setInterval ( updateCountDown,intervalSpeed);
     changeDifficulty(3);
     mistakes = 0;
@@ -171,7 +174,18 @@ function hideSvg() {
 
 // New word button
 document.getElementById('restart-btn').addEventListener('click', () =>{
-
+    if (level === 1) {
+        startInMinuts = 3;
+        time = startInMinuts * 60;
+    } else if (level === 0 ||level === 2) {
+        startInMinuts = 2;
+        time = startInMinuts * 60;
+    } else if (level === 3){
+        startInMinuts = 1;
+        time = startInMinuts * 60;
+    }  
+    clearInterval(clear)
+    clear = setInterval ( updateCountDown,intervalSpeed);
     mistakes = 0;
     guessed = [];
     getWord()
@@ -179,7 +193,6 @@ document.getElementById('restart-btn').addEventListener('click', () =>{
     generateButtons()
     updateMistakes()
     hideSvg()
-
  });
 
 
@@ -193,8 +206,6 @@ function checkIfGameWon() {
         document.getElementById('alphabet').innerHTML = 'You won!';
         playerScore++;
         updatePlayerScore()
-        getWord()
-        guessedWord()
     }
 }
 
