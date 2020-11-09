@@ -6,12 +6,11 @@ let mistakes = 0;
 let guessed = [];
 let wordStatus = null;
 
-
-
 // Start game on click
 document.getElementById('startBtn').addEventListener('click', () =>{
-    document.getElementById('startBtn').classList.toggle('hide');
+    document.getElementById('startBtnContainer').classList.toggle('hide');
     document.getElementById('gameContainer').classList.toggle('hide');
+    hideSvg();
 })
 
 
@@ -51,25 +50,25 @@ function generateButtons() {
 
 
 
-// Add guessed letter to "guessed" array
-function handleGuess(chosenLetter) {
-    if (guessed.indexOf(chosenLetter) === -1) {
+// Update letters for right guesses
+function handleGuess(chosenLetter ) {
+    if (guessed.indexOf(chosenLetter) === -1 ) {
         guessed.push(chosenLetter)
     } else {
         null;
     } 
-    
+
     document.getElementById(chosenLetter).setAttribute('disabled', true);
 
-    // Update letters for right guesses
+
     if (answer.indexOf(chosenLetter) >= 0) {
         guessedWord();
         checkIfGameWon();
-    // Update mistakes count
     } else if (answer.indexOf(chosenLetter) === -1) {
         mistakes++;
         updateMistakes();
         checkIfGameLost();
+        hideSvg();
     }
 }
 
@@ -84,7 +83,7 @@ document.getElementById('maxWrong').innerHTML = maxWrong;
 
 
 
-// Check for game result 
+// Check for game result ---> not working
 function checkIfGameWon() {
     if (wordStatus === answer) {
         document.getElementById('alphabet').innerHTML = 'You won!'
@@ -96,24 +95,25 @@ function checkIfGameLost() {
         document.getElementById('alphabet').innerHTML = 'You lost!'
     }
 }
- 
 
-function reset() {
-    window.onload = () => {
-    document.getElementById('startBtn').classList.toggle('hide');
-    document.getElementById('gameContainer').classList.toggle('hide');
-    } 
-    
+// to toggle svg parts 
+function hideSvg() {
+    document.getElementById('hangman').src = "./Images/hangman" + mistakes + ".svg";
 }
 
-document.getElementById('resetBtn').addEventListener('click', () => {
-    location.reload( );
-    reset();
-});
+document.getElementById('restart-btn').addEventListener('click', () =>{
+
+    mistakes = 0;
+    guessed = [];
+    getWord()
+    guessedWord()
+    generateButtons()
+    updateMistakes()
+    hideSvg()
+
+ });
 
 // Call functions
 getWord();
 guessedWord();
 generateButtons();
-
-
