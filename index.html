@@ -5,22 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hangman</title>
     <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display&display=swap" rel="stylesheet"> 
 </head>
 <body>
 
+    <header>
+         <h1>Hangman</h1>
+    </header>
+
     <main>
 
-        <img id="hangman" src="./Images/originalHangman.svg" alt="ImageOfHangman">
-    
-        <button id="startBtn">Start game</button>
+       
+        <figure>
+            <img id="hangman" src="./Images/hangman5.svg" alt="hangman">
+        </figure>
+
+
+        <section id="startBtnContainer">
+            <button id="startBtn">Start game</button>
+        </section>
+
 
         
         <section  class="hide" id="gameContainer">
-            <button id="restart-btn">Restart the game </button>
-            <p id="letters"></p>
-            <p id="word"></p>
+            
+            <p id="timer"></p>
+            <aside id="mistakesContainer">
             <p>Wrong guesses: <span id="mistakes">0</span> of <span id="maxWrong"></span></p>
-            <article id="alphabet"></article>
+            <p>Score: You <span id='playerScore'>0</span> Computer <span id='computerScore'>0</span></p>
+            </aside>
+
+            <p id="word"></p>
+
+            <section id="alphabet"></section>
+
+            <section id="buttons">
+                <button id="easy">Easy</button>
+                <button id="medium">Medium</button>
+                <button id="hard">Hard</button>
+                <button id="restart-btn">New Word</button>
+            </section>
+
         </section>
             
     </main>
