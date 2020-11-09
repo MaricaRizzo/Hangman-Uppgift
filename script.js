@@ -9,8 +9,8 @@ let maxWrong = 5;
 let mistakes = 0;
 let guessed = [];
 let wordStatus = null;
-let playerScore = 0;
-let computerScore = 0;
+let won = 0;
+let lost = 0;
 
 
 // Start game on click
@@ -175,24 +175,26 @@ document.getElementById('restart-btn').addEventListener('click', () =>{
 function checkIfGameWon() {
     if (wordStatus === answer) {
         document.getElementById('alphabet').innerHTML = 'You won!';
-        playerScore++;
-        updatePlayerScore()
+        won++;
+        updateWon()
     }
 }
 
 function checkIfGameLost() {
     if (mistakes === maxWrong) {
         document.getElementById('alphabet').innerHTML = 'You lost!' + "<br />" + 'The correct word was ' + answer;
-        computerScore++;
-        updateComputerScore()
+        lost++;
+        updateLost()
     }
 }
 
-function updatePlayerScore() {
-    document.getElementById('playerScore').innerHTML = playerScore;
+
+// Update score count
+function updateWon() {
+    document.getElementById('won').innerHTML = won;
 }
-function updateComputerScore() {
-    document.getElementById('computerScore').innerHTML = computerScore;
+function updateLost() {
+    document.getElementById('lost').innerHTML = lost;
 }
 
 
