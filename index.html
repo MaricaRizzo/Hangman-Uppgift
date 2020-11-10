@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display&display=swap" rel="stylesheet"> 
+</head>
+<body>
+
+    <header>
+         <h1>Hangman</h1>
+    </header>
+
+    <main>
+
+       
+        <figure>
+            <img id="hangman" src="./Images/hangman.svg" alt="hangman">
+        </figure>
+
+
+        <section id="startBtnContainer">
+            <button id="startBtn">Start game</button>
+        </section>
+
+
+        <section  class="hide" id="gameContainer">
+
+            <p id="timer"></p>
+
+            <aside id="mistakesContainer">
+            <p>Wrong guesses: <span id="mistakes">0</span> of <span id="maxWrong"></span></p>
+            <p>Score: Won <span id='won'>0</span> - Lost <span id='lost'>0</span></p>
+            </aside>
+
+            <p id="word"></p>
+
+            <section id="alphabet"></section>
+
+            <section id="buttons">
+                <button id="easy">Easy</button>
+                <button id="medium">Medium</button>
+                <button id="hard">Hard</button>
+                <button id="restart-btn">New Word</button>
+            </section>
+
+        </section>
+            
+    </main>
+    
+<script src="./script.js"></script>
+</body>
+</html>
