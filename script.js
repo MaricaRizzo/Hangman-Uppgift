@@ -3,7 +3,7 @@ let level = 0;
 let randomWords = [];
 let easyWords = ['apple', 'gene', 'flag', 'candy', 'taste'];
 let mediumWords = ['article', 'trident', 'corrupted', 'basically', 'computer'];
-let hardWords = ['aposthrophe', 'justification', 'abruptly', 'jinx', 'buckaroo'];
+let hardWords = ['apostrophe', 'justification', 'abruptly', 'jinx', 'buckaroo'];
 let answer = '';
 let maxWrong = 5;
 let mistakes = 0;
@@ -11,6 +11,11 @@ let guessed = [];
 let wordStatus = null;
 let won = 0;
 let lost = 0;
+let startInMinuts = 2;
+let time = startInMinuts * 60;
+let minutes;
+let seconds;
+const intervalSpeed = 1000;
 
 
 // Start game on click
@@ -19,12 +24,14 @@ document.getElementById('startBtn').addEventListener('click', () =>{
     document.getElementById('gameContainer').classList.toggle('hide');
     hideSvg();
     getWord();
+    clear = setInterval ( updateCountDown,intervalSpeed);
 })
 
 
 
 // Change game difficulty and push correct array 
 function changeDifficulty(difficulty = 0) {
+  
     level = difficulty
     randomWords = [];
     
@@ -37,13 +44,22 @@ function changeDifficulty(difficulty = 0) {
     }  
 }
 
+
+
 // Give random word from list of words
 function getWord() {
     answer = randomWords[Math.floor(Math.random()*randomWords.length)]; 
 }  
 
+
+
 //Select easy word
 document.getElementById('easy').addEventListener('click', () => {
+    
+    startInMinuts = 3;
+    time = startInMinuts * 60;
+    clearInterval(clear)
+    clear = setInterval ( updateCountDown,intervalSpeed);
     changeDifficulty(1);
     mistakes = 0;
     guessed = [];
@@ -55,8 +71,15 @@ document.getElementById('easy').addEventListener('click', () => {
 })
 
 
+
+
 //Select medium word
 document.getElementById('medium').addEventListener('click', () => {
+
+    startInMinuts = 2;
+    time = startInMinuts * 60;
+    clearInterval(clear)
+    clear = setInterval ( updateCountDown,intervalSpeed);
     changeDifficulty(2);
     mistakes = 0;
     guessed = [];
@@ -68,8 +91,15 @@ document.getElementById('medium').addEventListener('click', () => {
 })
 
 
+
+
 // Select hard word
 document.getElementById('hard').addEventListener('click', () => {
+
+    startInMinuts = 1;
+    time = startInMinuts * 60;
+    clearInterval(clear)
+    clear = setInterval ( updateCountDown,intervalSpeed);
     changeDifficulty(3);
     mistakes = 0;
     guessed = [];
@@ -135,16 +165,12 @@ function handleGuess(chosenLetter ) {
 }
 
 
-
 // Update wrong guesses
 function updateMistakes() {
     document.getElementById('mistakes').innerHTML = mistakes
 }
 
 document.getElementById('maxWrong').innerHTML = maxWrong;
-
-
-
 
 
 //Toggle svg parts 
@@ -155,7 +181,18 @@ function hideSvg() {
 
 // New word button
 document.getElementById('restart-btn').addEventListener('click', () =>{
-
+    if (level === 1) {
+        startInMinuts = 3;
+        time = startInMinuts * 60;
+    } else if (level === 0 ||level === 2) {
+        startInMinuts = 2;
+        time = startInMinuts * 60;
+    } else if (level === 3){
+        startInMinuts = 1;
+        time = startInMinuts * 60;
+    }  
+    clearInterval(clear)
+    clear = setInterval ( updateCountDown,intervalSpeed);
     mistakes = 0;
     guessed = [];
     getWord()
@@ -163,7 +200,6 @@ document.getElementById('restart-btn').addEventListener('click', () =>{
     generateButtons()
     updateMistakes()
     hideSvg()
-
  });
 
 
@@ -172,6 +208,8 @@ document.getElementById('restart-btn').addEventListener('click', () =>{
 // Check for game result
 function checkIfGameWon() {
     if (wordStatus === answer) {
+        clearInterval (clear);
+        countDownElement.innerHTML = 0;
         document.getElementById('alphabet').innerHTML = 'You won!';
         won++;
         updateWon()
@@ -180,20 +218,42 @@ function checkIfGameWon() {
 
 function checkIfGameLost() {
     if (mistakes === maxWrong) {
+        clearInterval(clear);
+        countDownElement.innerHTML = 0;
         document.getElementById('alphabet').innerHTML = 'You lost!' + "<br />" + 'The correct word was ' + answer;
         lost++;
         updateLost()
     }
 }
 
-
-// Update score count
 function updateWon() {
     document.getElementById('won').innerHTML = won;
 }
 function updateLost() {
     document.getElementById('lost').innerHTML = lost;
 }
+
+
+// Timer for the game 
+
+let countDownElement = document.getElementById('timer');
+
+function updateCountDown (){
+    minutes = Math.floor(time / 60 );
+    seconds = time % 60;
+    countDownElement.innerHTML = `${minutes} : ${seconds}`;
+    time--;
+
+    if (seconds <= 0 && minutes <= 0){
+        endOfTime();
+    }
+};
+
+function endOfTime (){
+    clearInterval (clear);
+    document.getElementById('alphabet').innerHTML = 'Time is up! You lost.';
+    lost++;
+};
 
 
 
