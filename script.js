@@ -253,6 +253,7 @@ function endOfTime (){
     clearInterval (clear);
     document.getElementById('alphabet').innerHTML = 'Time is up! You lost.';
     lost++;
+    updateLost()
 };
 
 
