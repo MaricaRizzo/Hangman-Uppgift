@@ -64,8 +64,8 @@ document.getElementById('easy').addEventListener('click', () => {
     mistakes = 0;
     guessed = [];
     getWord()
-    guessedWord()
-    generateButtons()
+    updateWord()
+    createBtn()
     updateMistakes()
     hideSvg()
 })
@@ -84,8 +84,8 @@ document.getElementById('medium').addEventListener('click', () => {
     mistakes = 0;
     guessed = [];
     getWord()
-    guessedWord()
-    generateButtons()
+    updateWord()
+    createBtn()
     updateMistakes()
     hideSvg()
 })
@@ -104,8 +104,8 @@ document.getElementById('hard').addEventListener('click', () => {
     mistakes = 0;
     guessed = [];
     getWord()
-    guessedWord()
-    generateButtons()
+    updateWord()
+    createBtn()
     updateMistakes()
     hideSvg()
 })
@@ -116,7 +116,7 @@ document.getElementById('hard').addEventListener('click', () => {
 // Split guess word 
 // Fill in word with guessed letter or
 // Create empty cells 
-function guessedWord() {
+function updateWord() {
     wordStatus = answer.split('').map(letter => (guessed.indexOf(letter) >= 0 ? letter : '_')).join('');
 
     document.getElementById('word').innerHTML = wordStatus;
@@ -125,13 +125,13 @@ function guessedWord() {
 
 
 // Create alphabet buttons
-function generateButtons() {
+function createBtn() {
     let buttonsHTML = 'abcdefghijklmnopqrstuvwxyz'.split('').map(letter => 
         `
         <button
             class = "btn"
             id = '` + letter + `'
-            onClick = "handleGuess('` + letter + `')"
+            onClick = "checkLetter('` + letter + `')"
         >
         ` + letter + `
         </button>
@@ -143,7 +143,7 @@ function generateButtons() {
 
 
 // Update letters for right guesses
-function handleGuess(chosenLetter ) {
+function checkLetter(chosenLetter ) {
     if (guessed.indexOf(chosenLetter) === -1 ) {
         guessed.push(chosenLetter)
     } else {
@@ -154,7 +154,7 @@ function handleGuess(chosenLetter ) {
 
 
     if (answer.indexOf(chosenLetter) >= 0) {
-        guessedWord();
+        updateWord();
         checkIfGameWon();
     } else if (answer.indexOf(chosenLetter) === -1) {
         mistakes++;
@@ -196,8 +196,8 @@ document.getElementById('restart-btn').addEventListener('click', () =>{
     mistakes = 0;
     guessed = [];
     getWord()
-    guessedWord()
-    generateButtons()
+    updateWord()
+    createBtn()
     updateMistakes()
     hideSvg()
  });
@@ -260,5 +260,5 @@ function endOfTime (){
 // Call functions
 changeDifficulty();
 getWord();
-guessedWord();
-generateButtons();
+updateWord();
+createBtn();
